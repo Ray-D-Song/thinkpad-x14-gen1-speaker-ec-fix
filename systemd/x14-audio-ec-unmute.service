@@ -1,0 +1,12 @@
+[Unit]
+Description=ThinkPad X14 Gen1 internal speaker EC latch fix
+DefaultDependencies=no
+After=systemd-modules-load.service local-fs.target
+Before=sound.target display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/x14-audio-ec-unmute
+
+[Install]
+WantedBy=multi-user.target

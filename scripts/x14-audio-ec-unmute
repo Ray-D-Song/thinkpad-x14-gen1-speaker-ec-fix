@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if lsmod | awk '{print $1}' | grep -qx x14_ec_bit_probe; then
+  rmmod x14_ec_bit_probe
+fi
+
+modprobe x14_ec_bit_probe offset=0x3b mask=0x01 value=0x00
+rmmod x14_ec_bit_probe
