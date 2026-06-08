@@ -7,7 +7,14 @@
 先安装内核构建依赖。Fedora：
 
 ```bash
-sudo dnf install gcc make kernel-devel
+sudo dnf install gcc make kernel-devel-$(uname -r)
+```
+
+如果 Fedora 仓库里已经没有当前运行内核对应的 `kernel-devel`，请先更新内核并重启，再安装：
+
+```bash
+sudo dnf upgrade kernel kernel-devel
+sudo reboot
 ```
 
 然后直接运行脚本：

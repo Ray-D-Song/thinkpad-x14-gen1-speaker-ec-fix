@@ -7,7 +7,14 @@ This is a temporary workaround for the internal speaker no-sound issue on ThinkP
 Install the kernel build dependencies first. Fedora:
 
 ```bash
-sudo dnf install gcc make kernel-devel
+sudo dnf install gcc make kernel-devel-$(uname -r)
+```
+
+If Fedora no longer provides the `kernel-devel` package matching the currently running kernel, update the kernel and kernel-devel together, reboot, then install:
+
+```bash
+sudo dnf upgrade kernel kernel-devel
+sudo reboot
 ```
 
 Then run the script directly:

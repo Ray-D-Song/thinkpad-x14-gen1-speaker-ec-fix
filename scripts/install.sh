@@ -11,6 +11,7 @@ branch="${BRANCH:-main}"
 raw_base="${RAW_BASE:-https://raw.githubusercontent.com/${repo}/${branch}}"
 kernel_release="${KERNELRELEASE:-$(uname -r)}"
 module_dir="/lib/modules/${kernel_release}/extra"
+build_dir="/lib/modules/${kernel_release}/build"
 work_dir=""
 
 cleanup() {
@@ -48,8 +49,25 @@ fi
 
 cd "$repo_dir"
 
+if [[ ! -d "$build_dir" ]]; then
+  cat >&2 <<EOF
+Missing kernel build directory:
+  $build_dir
+
+Install the matching kernel development package for the running kernel, then run this installer again.
+
+Fedora:
+  sudo dnf install gcc make kernel-devel-${kernel_release}
+
+If Fedora no longer provides kernel-devel-${kernel_release}, update kernel and kernel-devel together, reboot into the new kernel, then rerun this installer:
+  sudo dnf upgrade kernel kernel-devel
+  sudo reboot
+EOF
+  exit 1
+fi
+
 make clean >/dev/null 2>&1 || true
-make KDIR="/lib/modules/${kernel_release}/build"
+make KDIR="$build_dir"
 
 install -d -m 0755 "$module_dir" /usr/local/sbin
 install -m 0644 src/x14_ec_bit_probe.ko "$module_dir/x14_ec_bit_probe.ko"
