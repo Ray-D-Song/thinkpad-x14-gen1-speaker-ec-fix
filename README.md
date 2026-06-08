@@ -23,8 +23,6 @@ Then run the script directly:
 curl -fsSL https://raw.githubusercontent.com/ray-d-song/thinkpad-x14-gen1-speaker-ec-fix/main/scripts/install.sh | sudo bash
 ```
 
-Reboot after installation.
-
 ## Symptom
 
 On the tested machine, the key state difference is:

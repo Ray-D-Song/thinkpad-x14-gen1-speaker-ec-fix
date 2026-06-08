@@ -82,4 +82,18 @@ systemctl start x14-audio-ec-unmute.service
 
 systemctl --no-pager --full status x14-audio-ec-unmute.service || true
 echo
-echo "Installed. Reboot without pressing Fn+F1 at the Lenovo logo, then test the internal speaker."
+echo "Installed."
+
+if [[ -t 0 ]]; then
+  read -r -p "Reboot now? [y/N] " answer
+  case "$answer" in
+    [yY]|[yY][eE][sS])
+      systemctl reboot
+      ;;
+    *)
+      echo "Reboot later to verify the fix."
+      ;;
+  esac
+else
+  echo "Run 'sudo reboot' to verify the fix."
+fi

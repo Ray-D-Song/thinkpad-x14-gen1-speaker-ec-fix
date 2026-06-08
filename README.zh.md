@@ -23,8 +23,6 @@ sudo reboot
 curl -fsSL https://raw.githubusercontent.com/ray-d-song/thinkpad-x14-gen1-speaker-ec-fix/main/scripts/install.sh | sudo bash
 ```
 
-安装后重启
-
 ## 现象
 
 在已测试机器上，关键状态差异为：
